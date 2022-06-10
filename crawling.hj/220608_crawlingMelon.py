@@ -1,4 +1,4 @@
-from matplotlib import artist
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -16,14 +16,14 @@ soup = BeautifulSoup(data.text, 'html.parser')
 # lst50 > td:nth-child(2) > div > span.rank
 # lst50 > td:nth-child(4) > div > a > img
 
-trs = soup.select('#lst50')
+trs = soup.select('#lst50 > td > div')
 
 for tr in trs:
-    rank = tr.select_one('td > div > span.rank').text
-    img = tr.select_one('td > div > a > img')['src']
+    rank = tr.select_one('span.rank').text
+    img = tr.select_one(' a > img')['src']
     title = tr.select_one(
-        'td > div > div > div.ellipsis.rank01 > span > a').text
+        'div > div.ellipsis.rank01 > span > a').text
     artistA = tr.select_one(
-        'td > div > div > div.ellipsis.rank02 > span > a').text
-    album = tr.select_one('td > div > div > div.ellipsis.rank03 > a').text
+        'div > div.ellipsis.rank02 > span > a').text
+    album = tr.select_one('div > div.ellipsis.rank03 > a').text
     print(rank, img, title, artistA, album)
