@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 browser = webdriver.Chrome('./chromedriver')
 # browser.maximize_window()  # 창 최대화
@@ -50,3 +52,11 @@ find_jeju.click()
 # find & click search
 search_btn = browser.find_element(By.XPATH, '//span[text() = "항공권 검색"]')
 search_btn.click()
+
+#Loading Finish before
+#Class Name = @ 
+elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.XPATH, '//div[@class="domestic_Flight__sK0eA result"]')))
+print(elem.text)
+
+#Quit browser
+browser.quit()
